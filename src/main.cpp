@@ -25,31 +25,5 @@ void loop() {
   strip.show();  
     delay(1000); 
 
-  return;
-
-  strip.clear();
-  for(int i=0; i<LED_COUNT; i++) {
-    strip.setPixelColor(i, strip.Color(150, 0, 0, 0));
-    strip.show();  
-    delay(10); 
-  }
-  strip.clear();
-  for(int i=0; i<LED_COUNT; i++) {
-    strip.setPixelColor(i, strip.Color(0, 150, 0, 0));
-    strip.show();  
-    delay(10); 
-  }
-  strip.clear();
-  for(int i=0; i<LED_COUNT; i++) {
-    strip.setPixelColor(i, strip.Color(0, 0, 150, 0));
-    strip.show();  
-    delay(10); 
-  }
-  strip.clear();
-  for(int i=0; i<LED_COUNT; i++) {
-    strip.setPixelColor(i, strip.Color(0, 0, 0, 150));
-    strip.show();  
-    delay(10); 
-  }
 }
 
