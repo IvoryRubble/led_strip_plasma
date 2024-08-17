@@ -8,8 +8,10 @@
 #define LED_PIN 6
 #define LED_COUNT 29
 
-const uint32_t period = 1000;
-const int brightness0 = 254;
+const uint32_t period0 = 3000;
+const uint32_t period1 = 7000;
+const int brightness0 = 255;
+const int brightness1 = 255;
 
 Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRBW + NEO_KHZ800);
 
@@ -29,18 +31,22 @@ void setup() {
 }
 
 void loop() {
-  uint32_t currentTime = millis() % period;
+  uint32_t currentTime0 = millis() % period0;
+  uint32_t currentTime1 = millis() % period1;
 
-  float t = mapf(currentTime, 0, period, 0, 2);
+  float t0 = mapf(currentTime0, 0, period0, 100, 102);
+  float t1 = mapf(currentTime1, 0, period1, 100, 102);
 
   strip.clear();
   for (int i = 0; i < LED_COUNT; i++) {
-    float pixelI = periodicFuncHSV(t + 0.5 * (float)(i * 2) / LED_COUNT);
-    int pixelIInt = mapf(pixelI, 0, 1, 0, 65535); 
-    strip.setPixelColor(i, strip.ColorHSV(pixelIInt, 255, 10));
+    float pixelI0 = periodicFuncPow5(t0 + 1.6 * (float)(i * 2) / LED_COUNT);
+    float pixelIInt0 = mapf(pixelI0, 0, 1, 0, brightness0); 
+    float pixelI1 = periodicFuncPow5(t1 - 4 * (float)(i * 2) / LED_COUNT);
+    float pixelIInt1 = mapf(pixelI1, 0, 1, 0, brightness1); 
+    strip.setPixelColor(i, strip.ColorHSV(65535 / 2, 255, (int)((pixelIInt0 + pixelIInt1) / 2)));
   }
   strip.show();
-  delay(1);
+  delay(10);
 }
 
 float periodicFuncHSV(float input) {
