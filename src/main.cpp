@@ -8,11 +8,12 @@
 #define LED_PIN 6
 #define LED_COUNT 29
 
-const uint32_t period = 5000;
+const uint32_t period = 1000;
 const int brightness0 = 254;
 
 Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRBW + NEO_KHZ800);
 
+float periodicFuncHSV(float);
 float periodicFuncLinear(float, float, float);
 float periodicFuncPow1(float);
 float periodicFuncPow2(float);
@@ -34,12 +35,18 @@ void loop() {
 
   strip.clear();
   for (int i = 0; i < LED_COUNT; i++) {
-    float pixelI = periodicFuncPow5(t + 4 * (float)(i * 2) / LED_COUNT);
-    int pixelIInt = pixelI * brightness0 + 1; 
-    strip.setPixelColor(i, strip.Color(pixelIInt, 0, 0, 0));
+    float pixelI = periodicFuncHSV(t + 0.5 * (float)(i * 2) / LED_COUNT);
+    int pixelIInt = mapf(pixelI, 0, 1, 0, 65535); 
+    strip.setPixelColor(i, strip.ColorHSV(pixelIInt, 255, 10));
   }
   strip.show();
   delay(1);
+}
+
+float periodicFuncHSV(float input) {
+  float x = input - ((int)input / 2 * 2);
+  float y = x / 2;
+  return y;
 }
 
 float periodicFuncLinear(float input, float bendX, float bendY) {
