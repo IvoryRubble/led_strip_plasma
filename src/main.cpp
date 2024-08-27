@@ -5,13 +5,13 @@
 #define mapf(val, in_min, in_max, out_min, out_max) \
   (float)(val - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
 
-#define LED_PIN 6
-#define LED_COUNT 29
+#define LED_PIN 4
+#define LED_COUNT 19
 
-const uint32_t period0 = 5000;
-const uint32_t period1 = 7000;
-const uint32_t period2 = 10000;
-const uint32_t period3 = 3000;
+const uint32_t period0 = 5000 * 3;
+const uint32_t period1 = 7000 * 3;
+const uint32_t period2 = 10000 * 3;
+const uint32_t period3 = 3000 * 3;
 const int brightness0 = 255;
 const int brightness1 = 255;
 const int brightness2 = 255;
@@ -58,7 +58,7 @@ void loop() {
     strip.setPixelColor(i, strip.ColorHSV(hue, 255, val));
   }
   strip.show();
-  delay(10);
+  delay(5);
 }
 
 float periodicFuncHSV(float input) {
